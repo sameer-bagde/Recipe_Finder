@@ -1,24 +1,20 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "useDefineForClassFields": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
-    "skipLibCheck": true,
-
-    /* Bundler mode */
-    "moduleResolution": "bundler", // Ensure latest TypeScript is used
-    "allowImportingTsExtensions": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx",
-
-    /* Linting */
+    "target": "es6", // You can use "esnext" for newer features if needed
+    "module": "esnext", // Use ES modules for modern JavaScript
+    "moduleResolution": "node",
+    "rootDir": "src",
+    "outDir": "build",
+    "lib": ["ESNext", "DOM"], // Include ESNext for the latest features and DOM for browser APIs
     "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "esModuleInterop": true,
+    "allowJs": false, // Typically set to false if you're only using TypeScript files
+    "checkJs": false,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react-jsx" // Use the new JSX runtime
   },
-  "include": ["src"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
 }
