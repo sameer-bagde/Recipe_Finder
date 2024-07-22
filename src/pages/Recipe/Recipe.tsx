@@ -12,6 +12,7 @@ const Recipe = () => {
   const { theme } = useContext(ThemeContext); // Accessing theme from context
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
+  const authenticated = !!localStorage.getItem("authToken");
 
   useEffect(() => {
     let isMounted = true;
@@ -119,16 +120,18 @@ const Recipe = () => {
                     alt={details.title}
                     className="w-full md:w-96 h-auto object-cover rounded-lg"
                   />
-                  <button
-                    onClick={saveToFavorites}
-                    className={`mt-4 px-4 py-2 rounded-md ${
-                      theme === "dark"
-                        ? "bg-green-600 text-white hover:bg-green-700"
-                        : "bg-green-500 text-white hover:bg-green-600"
-                    }`}
-                  >
-                    Add to Favorites
-                  </button>
+                  {authenticated && (
+                    <button
+                      onClick={saveToFavorites}
+                      className={`mt-4 px-4 py-2 rounded-md ${
+                        theme === "dark"
+                          ? "bg-green-600 text-white hover:bg-green-700"
+                          : "bg-green-500 text-white hover:bg-green-600"
+                      }`}
+                    >
+                      Add to Favorites
+                    </button>
+                  )}
                 </div>
                 <div className="ml-0 md:ml-20 mt-8 md:mt-0 max-h-[50vh] overflow-y-auto">
                   <div className="flex mb-4">
