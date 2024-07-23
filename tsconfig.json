@@ -1,20 +1,22 @@
 {
   "compilerOptions": {
-    "target": "es6", // You can use "esnext" for newer features if needed
-    "module": "esnext", // Use ES modules for modern JavaScript
+    "target": "es6",
+    "module": "esnext",
     "moduleResolution": "node",
     "rootDir": "src",
     "outDir": "build",
-    "lib": ["ESNext", "DOM"], // Include ESNext for the latest features and DOM for browser APIs
+    "lib": ["ESNext", "DOM"],
     "strict": true,
     "esModuleInterop": true,
-    "allowJs": false, // Typically set to false if you're only using TypeScript files
+    "allowJs": false,
     "checkJs": false,
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "jsx": "react-jsx" // Use the new JSX runtime
+    "jsx": "react-jsx",
+    "types": ["jest", "@testing-library/jest-dom", "node"]
+
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "src/_tests_/App.test.tsx", "test", "__ mocks __", "jest-setup.ts"],
   "exclude": ["node_modules"]
 }

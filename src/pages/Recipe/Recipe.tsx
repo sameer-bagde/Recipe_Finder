@@ -4,6 +4,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { fetchRecipeDetails } from "../../context/Recipes/action";
 import { ThemeContext } from "../../context/theme";
 import { Dialog, Transition } from "@headlessui/react";
+import * as Sentry from "@sentry/react";
+
 
 const Recipe = () => {
   const [details, setDetails] = useState<any>({});
@@ -40,51 +42,122 @@ const Recipe = () => {
   };
 
   const saveToFavorites = () => {
-    const authToken = localStorage.getItem("authToken");
-    if (!authToken) {
-      alert("No user logged in!");
-      return;
-    }
-
-    const currentUser = JSON.parse(localStorage.getItem("userData") || "{}");
-    const currentEmail = currentUser.email;
-
-    console.log("Current User:", currentUser);
-    console.log("Current Email:", currentEmail);
-
-    if (currentEmail) {
-      const users = JSON.parse(localStorage.getItem("users") || "[]");
-      console.log("All Users:", users);
-      const userIndex = users.findIndex(
-        (user: any) => user.email === currentEmail,
-      );
-
-      console.log("User Index:", userIndex);
-
-      if (userIndex !== -1) {
-        const newFavorite = {
-          title: details.title,
-          extendedIngredients: details.extendedIngredients.map(
-            (ingredient: any) => ingredient.original,
-          ),
-          summary: details.summary,
-          instructions: details.instructions,
-          image: details.image,
-        };
-
-        users[userIndex].favorites = users[userIndex].favorites || [];
-        users[userIndex].favorites.push(newFavorite);
-
-        localStorage.setItem("users", JSON.stringify(users));
-        console.log("Updated Users:", users);
-        alert("Recipe added to favorites!");
-      } else {
-        alert("User not found!");
+    try {
+      const authToken = localStorage.getItem("authToken");
+      if (!authToken) {
+        alert("No user logged in!");
+        return;
       }
-    } else {
-      alert("No user logged in!");
+  
+      const currentUser = JSON.parse(localStorage.getItem("userData") || "{}");
+      const currentEmail = currentUser.email;
+  
+      if (currentEmail) {
+        const users = JSON.parse(localStorage.getItem("users") || "[]");
+        const userIndex = users.findIndex(
+          (user: any) => user.email === currentEmail
+        );
+  
+        if (userIndex !== -1) {
+          const user = users[userIndex];
+          const newFavorite = {
+            title: details.title,
+            extendedIngredients: details.extendedIngredients.map(
+              (ingredient: any) => ingredient.original
+            ),
+            summary: details.summary,
+            instructions: details.instructions,
+            image: details.image
+          };
+  
+          const recipeExists = user.favorites?.some(
+            (favorite: any) => favorite.title === newFavorite.title
+          );
+
+  
+          if (recipeExists) {
+            alert("Recipe is already in favorites!");
+          } else {
+            user.favorites = user.favorites || [];
+            user.favorites.push(newFavorite);
+            localStorage.setItem("users", JSON.stringify(users));
+            alert("Recipe added to favorites!");
+          }
+        } else {
+          alert("User not found!");
+        }
+      } else {
+        alert("No user logged in!");
+      }
+    } catch (error) {
+      Sentry.captureException(error);
     }
   };
+
+
+  // const saveToFavorites = () => {
+  //   try {
+  //     const authToken = localStorage.getItem("authToken");
+  //     if (!authToken) {
+  //       alert("No user logged in!");
+  //       return;
+  //     }
+  
+  //     const currentUser = JSON.parse(localStorage.getItem("userData") || "{}");
+  //     const currentEmail = currentUser.email;
+  
+  //     if (currentEmail) {
+  //       const users = JSON.parse(localStorage.getItem("users") || "[]");
+  //       const userIndex = users.findIndex(
+  //         (user: any) => user.email === currentEmail
+  //       );
+  
+  //       if (userIndex !== -1) {
+  //         const user = users[userIndex];
+  //         const newFavorite = {
+  //           title: details.title,
+  //           extendedIngredients: details.extendedIngredients.map(
+  //             (ingredient: any) => ingredient.original
+  //           ),
+  //           summary: details.summary,
+  //           instructions: details.instructions,
+  //           image: details.image
+  //         };
+  
+  //         // Check if the recipe is already in the user's favorites
+  //         const recipeExists = user.favorites?.some(
+  //           (favorite: any) => favorite.title === newFavorite.title
+  //         );
+  
+  //         if (recipeExists) {
+  //           alert("Recipe is already in favorites!");
+  //         } else {
+  //           user.favorites = user.favorites || [];
+  //           user.favorites.push(newFavorite);
+  //           localStorage.setItem("users", JSON.stringify(users));
+            
+  //           // Introduce a logic error here
+  //           const currentFavoritesCount = user.favorites.length;
+  //           if ((currentFavoritesCount % 2 === 0 && newFavorite.title.length % 2 !== 0) || 
+  //               (currentFavoritesCount % 2 !== 0 && newFavorite.title.length % 2 === 0)) {
+  //             throw new Error("Favorite count and title length parity mismatch");
+  //           }
+  
+  //           alert("Recipe added to favorites!");
+  //         }
+  //       } else {
+  //         alert("User not found!");
+  //       }
+  //     } else {
+  //       alert("No user logged in!");
+  //     }
+  //   } catch (error) {
+  //     Sentry.captureException(error);
+  //     console.error("Error in saveToFavorites:", error);
+  //     alert("An error occurred while saving the recipe. Please try again.");
+  //   }
+  // };
+
 
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -174,7 +247,7 @@ const Recipe = () => {
                           >
                             {original}
                           </li>
-                        ),
+                        )
                       )}
                     </ul>
                   )}
@@ -187,7 +260,7 @@ const Recipe = () => {
                       <p
                         className="text-base sm:text-lg leading-6 mt-4"
                         dangerouslySetInnerHTML={{
-                          __html: details.instructions,
+                          __html: details.instructions
                         }}
                       ></p>
                     </div>
