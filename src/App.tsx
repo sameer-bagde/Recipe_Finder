@@ -19,7 +19,7 @@ function App() {
             <RouterProvider router={router} />
           </RecipeProvider>
         </div>
-      </Suspense>
+      </Suspense> 
     </>
   );
 }
