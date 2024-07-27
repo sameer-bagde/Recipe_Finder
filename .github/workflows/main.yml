@@ -95,7 +95,6 @@ jobs:
     needs: [deploy, run-tests]
     runs-on: ubuntu-latest
     if: ${{ always() }}
-    
 
     steps:
       - name: Send success notification
