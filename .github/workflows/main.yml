@@ -8,7 +8,6 @@ on:
     branches:
       - main
 
-
 jobs:
   run-tests:
     runs-on: ubuntu-latest
@@ -38,7 +37,7 @@ jobs:
         id: run-app
         run: |
           npm start &
-          sleep 5
+          sleep 10  # Increased sleep time to ensure the app starts
 
       - name: Run integration tests
         run: |
@@ -85,12 +84,17 @@ jobs:
       - name: Build project
         run: npm run build
 
+      - name: Install Netlify CLI
+        run: npm install -g netlify-cli
+
+      - name: Authenticate with Netlify
+        run: echo ${{ secrets.NETLIFY_AUTH_TOKEN }} | netlify auth:login
+
       - name: Deploy to Netlify
-        uses: jsmrcaga/action-netlify-deploy@master
-        with:
+        run: |
+          netlify deploy --prod --dir=build --site ${{ secrets.NETLIFY_SITE_ID }}
+        env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-          NETLIFY_DEPLOY_TO_PROD: true
 
   notification:
     name: Send Slack Notification

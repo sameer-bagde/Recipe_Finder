@@ -123,49 +123,47 @@ const RandomRecipes = () => {
                     _jsx("div", {
                       className:
                         "grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10",
-                      children: recipes
-                        .slice(0, visibleRecipes)
-                        .map((recipe) =>
-                          _jsxs(
-                            "div",
-                            {
-                              className: `overflow-hidden rounded-xl shadow-lg flex flex-col ${theme === "dark" ? "bg-slate-900" : "bg-white"}`,
-                              children: [
-                                _jsx("div", {
-                                  className: "relative",
-                                  children: _jsx("img", {
-                                    className: "w-full rounded-xl",
-                                    src: recipe.image,
-                                    alt: recipe.title,
-                                  }),
+                      children: recipes.slice(0, visibleRecipes).map((recipe) =>
+                        _jsxs(
+                          "div",
+                          {
+                            className: `overflow-hidden rounded-xl shadow-lg flex flex-col ${theme === "dark" ? "bg-slate-900" : "bg-white"}`,
+                            children: [
+                              _jsx("div", {
+                                className: "relative",
+                                children: _jsx("img", {
+                                  className: "w-full rounded-xl",
+                                  src: recipe.image,
+                                  alt: recipe.title,
                                 }),
-                                _jsx("div", {
-                                  className: "px-6 py-4 mb-auto",
+                              }),
+                              _jsx("div", {
+                                className: "px-6 py-4 mb-auto",
+                                children: _jsx("p", {
+                                  className: `font-medium text-lg inline-block hover:text-indigo-600 transition duration-500 ease-in-out mb-2 ${theme === "dark" ? "text-white" : "text-black"}`,
+                                  children: recipe.title,
+                                }),
+                              }),
+                              _jsx(Link, {
+                                to: `/recipe/${recipe.id}`,
+                                className: "no-underline",
+                                children: _jsx("div", {
+                                  className: `px-6 py-3 flex flex-col items-center rounded-xl justify-center ${
+                                    theme === "dark"
+                                      ? "bg-gray-700 text-gray-300 hover:bg-gray-800"
+                                      : "bg-slate-700 text-slate-200 hover:bg-slate-600"
+                                  }`,
                                   children: _jsx("p", {
-                                    className: `font-medium text-lg inline-block hover:text-indigo-600 transition duration-500 ease-in-out mb-2 ${theme === "dark" ? "text-white" : "text-black"}`,
-                                    children: recipe.title,
+                                    className: "font-mono",
+                                    children: t("Recipe"),
                                   }),
                                 }),
-                                _jsx(Link, {
-                                  to: `/recipe/${recipe.id}`,
-                                  className: "no-underline",
-                                  children: _jsx("div", {
-                                    className: `px-6 py-3 flex flex-col items-center rounded-xl justify-center ${
-                                      theme === "dark"
-                                        ? "bg-gray-700 text-gray-300 hover:bg-gray-800"
-                                        : "bg-slate-700 text-slate-200 hover:bg-slate-600"
-                                    }`,
-                                    children: _jsx("p", {
-                                      className: "font-mono",
-                                      children: t("Recipe"),
-                                    }),
-                                  }),
-                                }),
-                              ],
-                            },
-                            recipe.id,
-                          ),
+                              }),
+                            ],
+                          },
+                          recipe.id,
                         ),
+                      ),
                     }),
                     visibleRecipes < recipes.length &&
                       _jsx("div", {
