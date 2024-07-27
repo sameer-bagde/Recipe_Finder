@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// SigninForm.tsx
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -36,8 +35,8 @@ const SigninForm: React.FC = () => {
       localStorage.setItem("authToken", authToken);
       localStorage.setItem("userData", JSON.stringify(user));
 
-      console.log("Auth Token:", authToken); // Console log the auth token
       navigate("/");
+
       console.log(data);
     } catch (error: any) {
       console.error("Sign-in failed:", error);
@@ -49,7 +48,10 @@ const SigninForm: React.FC = () => {
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
-          <label className="block text-gray-700 font-semibold mb-2 font-mono">
+          <label
+            className="block text-gray-700 font-semibold mb-2 font-mono"
+            htmlFor="email"
+          >
             Email:
           </label>
           <input
@@ -68,7 +70,10 @@ const SigninForm: React.FC = () => {
           )}
         </div>
         <div>
-          <label className="block text-gray-700 font-semibold mb-2 font-mono">
+          <label
+            className="block text-gray-700 font-semibold mb-2 font-mono"
+            htmlFor="password"
+          >
             Password:
           </label>
           <input
@@ -94,7 +99,7 @@ const SigninForm: React.FC = () => {
       <p className="mt-8 font-mono text-black">
         Need an account?{" "}
         <Link
-          to="/sign-up"
+          to="/user/sign-up"
           className="text-blue-500 hover:text-blue-700 font-semibold"
         >
           Create an account

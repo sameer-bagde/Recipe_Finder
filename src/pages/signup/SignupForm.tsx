@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// SignupForm.tsx
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -19,32 +18,33 @@ const SignupForm: React.FC = () => {
   } = useForm<Inputs>();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const generateAuthToken = (email: string, password: string) => {
-    return btoa(`${email}:${password}`); // Basic encoding for demonstration
-  };
-
-  const fromSubmit: SubmitHandler<Inputs> = async (data) => {
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
-      // Retrieve existing user data from local storage
       const users = JSON.parse(localStorage.getItem("users") || "[]");
-      const existingUser = users.find((user: any) => user.email === data.email);
 
-      if (existingUser) {
+      const userExists = users.some((user: any) => user.email === data.email);
+
+      if (userExists) {
         throw new Error("User with this email already exists");
       }
 
-      // Create new user object
-      const newUser = { ...data, favorites: [] };
-      users.push(newUser);
+      users.push({
+        name: data.name,
+        email: data.email,
+        password: data.password,
+      });
       localStorage.setItem("users", JSON.stringify(users));
 
       console.log("Sign-up successful");
-      const authToken = generateAuthToken(data.email, data.password);
+      const authToken = btoa(`${data.email}:${data.password}`); // Basic encoding for demonstration
       localStorage.setItem("authToken", authToken);
-      localStorage.setItem("userData", JSON.stringify(newUser));
+      localStorage.setItem(
+        "userData",
+        JSON.stringify({ name: data.name, email: data.email }),
+      );
 
-      console.log("Auth Token:", authToken); // Console log the auth token
       navigate("/");
+
       console.log(data);
     } catch (error: any) {
       console.error("Sign-up failed:", error);
@@ -54,7 +54,7 @@ const SignupForm: React.FC = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit(fromSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label
             htmlFor="name"
@@ -63,14 +63,14 @@ const SignupForm: React.FC = () => {
             Your Name:
           </label>
           <input
-            {...register("name", { required: true })}
+            {...register("name", { required: "Name is required" })}
             type="text"
             id="name"
             placeholder="Enter your name"
             autoComplete="name"
             className={`w-full font-mono border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue ${errors.name ? "border-red-500" : ""}`}
           />
-          {errors.name && <p className="text-red-500">Name is required</p>}
+          {errors.name && <p className="text-red-500">{errors.name.message}</p>}
         </div>
         <div>
           <label
@@ -80,18 +80,18 @@ const SignupForm: React.FC = () => {
             Email:
           </label>
           <input
-            {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
+            {...register("email", {
+              required: "Email is required",
+              pattern: { value: /^\S+@\S+$/i, message: "Invalid email format" },
+            })}
             type="email"
             id="email"
             placeholder="Enter your email"
             autoComplete="email"
             className={`w-full border font-mono rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue ${errors.email ? "border-red-500" : ""}`}
           />
-          {errors.email?.type === "required" && (
-            <p className="text-red-500">Email is required</p>
-          )}
-          {errors.email?.type === "pattern" && (
-            <p className="text-red-500">Invalid email format</p>
+          {errors.email && (
+            <p className="text-red-500">{errors.email.message}</p>
           )}
         </div>
         <div>
@@ -102,20 +102,21 @@ const SignupForm: React.FC = () => {
             Password:
           </label>
           <input
-            {...register("password", { required: true, minLength: 8 })}
+            {...register("password", {
+              required: "Password is required",
+              minLength: {
+                value: 8,
+                message: "Password must be at least 8 characters long",
+              },
+            })}
             type="password"
             id="password"
             placeholder="Enter your password"
             autoComplete="password"
             className={`w-full border font-mono rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue ${errors.password ? "border-red-500" : ""}`}
           />
-          {errors.password?.type === "required" && (
-            <p className="text-red-500">Password is required</p>
-          )}
-          {errors.password?.type === "minLength" && (
-            <p className="text-red-500">
-              Password must be at least 8 characters long
-            </p>
+          {errors.password && (
+            <p className="text-red-500">{errors.password.message}</p>
           )}
         </div>
         <button

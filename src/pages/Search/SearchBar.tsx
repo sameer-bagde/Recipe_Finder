@@ -49,7 +49,7 @@ const SearchBar: React.FC = () => {
         <input
           className={`bg-gray-100 outline-none placeholder-gray-500 text-gray-800`}
           type="text"
-          placeholder={t("Recipe or Ingredients...")} 
+          placeholder={t("Recipe or Ingredients...")}
           value={searchTerm}
           onChange={handleInputChange}
         />
