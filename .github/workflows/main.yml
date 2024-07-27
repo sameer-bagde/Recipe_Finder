@@ -7,7 +7,7 @@ on:
   pull_request:
     branches:
       - main
-      
+
 
 jobs:
   run-tests:
@@ -60,10 +60,10 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker Image
-        run: docker build -t sameerbagde92/recipe_finder
+        run: docker build -t sameerbagde92/recipe-finder .
 
       - name: Push Docker Image
-        run: docker push sameerbagde92/recipe_finder
+        run: docker push sameerbagde92/recipe-finder
 
   deploy:
     name: Deploy to Netlify
