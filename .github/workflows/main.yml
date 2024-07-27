@@ -87,9 +87,6 @@ jobs:
       - name: Install Netlify CLI
         run: npm install -g netlify-cli
 
-      - name: Authenticate with Netlify
-        run: echo ${{ secrets.NETLIFY_AUTH_TOKEN }} | netlify auth:login
-
       - name: Deploy to Netlify
         run: |
           netlify deploy --prod --dir=build --site ${{ secrets.NETLIFY_SITE_ID }}
