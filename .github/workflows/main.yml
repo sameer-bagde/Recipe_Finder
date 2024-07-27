@@ -37,7 +37,7 @@ jobs:
         id: run-app
         run: |
           npm start &
-          sleep 10  # Increased sleep time to ensure the app starts
+          sleep 10  # Ensure the app starts before running integration tests
 
       - name: Run integration tests
         run: |

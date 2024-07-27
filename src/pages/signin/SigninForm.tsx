@@ -99,7 +99,7 @@ const SigninForm: React.FC = () => {
       <p className="mt-8 font-mono text-black">
         Need an account?{" "}
         <Link
-          to="/sign-up"
+          to="/user/sign-up"
           className="text-blue-500 hover:text-blue-700 font-semibold"
         >
           Create an account

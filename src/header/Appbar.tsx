@@ -231,7 +231,7 @@ const Appbar: React.FC = () => {
                         </Link>
                         <Link
                           className="block px-4 py-2 text-sm font-mono transition-all duration-300 hover:bg-gray-200 hover:text-black dark:hover:bg-gray-700 dark:hover:text-white"
-                          to="/sign-up"
+                          to="/user/sign-up"
                         >
                           {t("Sign-Up")}
                         </Link>
