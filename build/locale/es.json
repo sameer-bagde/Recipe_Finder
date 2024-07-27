@@ -1,0 +1,20 @@
+{
+  "translation": {
+    "Current Date and Time": "Fecha y Hora Actual",
+    "Show AI Generated Recipe": "Mostrar Receta Generada por IA",
+    "Show Search": "Buscar",
+    "Search": "Buscar",
+    "Unable to Load Recipes": "No se pueden cargar las recetas",
+    "RANDOM RECIPE": "RECETA ALEATORIA",
+    "Ingredients": "Ingredientes",
+    "Instructions": "Instrucciones",
+    "Enter a recipe name or ask for a recipe": "Ingresa un nombre de receta o solicita una receta",
+    "Recipe or Ingredients...": "Receta o Ingredientes...",
+    "Sign-Up": "Registrarse",
+    "Sign-In": "Iniciar Sesión",
+    "Sign-Out": "Cerrar Sesión",
+    "Generate": "Generar",
+    "Close": "Cerrar",
+    "Favorites": "Favoritos"
+  }
+}

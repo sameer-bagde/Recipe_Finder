@@ -23,7 +23,7 @@ const SigninForm: React.FC = () => {
       const users = JSON.parse(localStorage.getItem("users") || "[]");
       const user = users.find(
         (user: any) =>
-          user.email === data.email && user.password === data.password
+          user.email === data.email && user.password === data.password,
       );
 
       if (!user) {
@@ -48,7 +48,10 @@ const SigninForm: React.FC = () => {
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
-          <label className="block text-gray-700 font-semibold mb-2 font-mono" htmlFor="email">
+          <label
+            className="block text-gray-700 font-semibold mb-2 font-mono"
+            htmlFor="email"
+          >
             Email:
           </label>
           <input
@@ -67,7 +70,10 @@ const SigninForm: React.FC = () => {
           )}
         </div>
         <div>
-          <label className="block text-gray-700 font-semibold mb-2 font-mono" htmlFor="password">
+          <label
+            className="block text-gray-700 font-semibold mb-2 font-mono"
+            htmlFor="password"
+          >
             Password:
           </label>
           <input

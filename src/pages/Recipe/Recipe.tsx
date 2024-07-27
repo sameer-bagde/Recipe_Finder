@@ -6,7 +6,6 @@ import { ThemeContext } from "../../context/theme";
 import { Dialog, Transition } from "@headlessui/react";
 import * as Sentry from "@sentry/react";
 
-
 const Recipe = () => {
   const [details, setDetails] = useState<any>({});
   const [activeTab, setActiveTab] = useState("instructions");
@@ -48,33 +47,32 @@ const Recipe = () => {
         alert("No user logged in!");
         return;
       }
-  
+
       const currentUser = JSON.parse(localStorage.getItem("userData") || "{}");
       const currentEmail = currentUser.email;
-  
+
       if (currentEmail) {
         const users = JSON.parse(localStorage.getItem("users") || "[]");
         const userIndex = users.findIndex(
-          (user: any) => user.email === currentEmail
+          (user: any) => user.email === currentEmail,
         );
-  
+
         if (userIndex !== -1) {
           const user = users[userIndex];
           const newFavorite = {
             title: details.title,
             extendedIngredients: details.extendedIngredients.map(
-              (ingredient: any) => ingredient.original
+              (ingredient: any) => ingredient.original,
             ),
             summary: details.summary,
             instructions: details.instructions,
-            image: details.image
+            image: details.image,
           };
-  
+
           const recipeExists = user.favorites?.some(
-            (favorite: any) => favorite.title === newFavorite.title
+            (favorite: any) => favorite.title === newFavorite.title,
           );
 
-  
           if (recipeExists) {
             alert("Recipe is already in favorites!");
           } else {
@@ -94,7 +92,6 @@ const Recipe = () => {
     }
   };
 
-
   // const saveToFavorites = () => {
   //   try {
   //     const authToken = localStorage.getItem("authToken");
@@ -102,16 +99,16 @@ const Recipe = () => {
   //       alert("No user logged in!");
   //       return;
   //     }
-  
+
   //     const currentUser = JSON.parse(localStorage.getItem("userData") || "{}");
   //     const currentEmail = currentUser.email;
-  
+
   //     if (currentEmail) {
   //       const users = JSON.parse(localStorage.getItem("users") || "[]");
   //       const userIndex = users.findIndex(
   //         (user: any) => user.email === currentEmail
   //       );
-  
+
   //       if (userIndex !== -1) {
   //         const user = users[userIndex];
   //         const newFavorite = {
@@ -123,26 +120,26 @@ const Recipe = () => {
   //           instructions: details.instructions,
   //           image: details.image
   //         };
-  
+
   //         // Check if the recipe is already in the user's favorites
   //         const recipeExists = user.favorites?.some(
   //           (favorite: any) => favorite.title === newFavorite.title
   //         );
-  
+
   //         if (recipeExists) {
   //           alert("Recipe is already in favorites!");
   //         } else {
   //           user.favorites = user.favorites || [];
   //           user.favorites.push(newFavorite);
   //           localStorage.setItem("users", JSON.stringify(users));
-            
+
   //           // Introduce a logic error here
   //           const currentFavoritesCount = user.favorites.length;
-  //           if ((currentFavoritesCount % 2 === 0 && newFavorite.title.length % 2 !== 0) || 
+  //           if ((currentFavoritesCount % 2 === 0 && newFavorite.title.length % 2 !== 0) ||
   //               (currentFavoritesCount % 2 !== 0 && newFavorite.title.length % 2 === 0)) {
   //             throw new Error("Favorite count and title length parity mismatch");
   //           }
-  
+
   //           alert("Recipe added to favorites!");
   //         }
   //       } else {
@@ -157,7 +154,6 @@ const Recipe = () => {
   //     alert("An error occurred while saving the recipe. Please try again.");
   //   }
   // };
-
 
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -247,7 +243,7 @@ const Recipe = () => {
                           >
                             {original}
                           </li>
-                        )
+                        ),
                       )}
                     </ul>
                   )}
@@ -260,7 +256,7 @@ const Recipe = () => {
                       <p
                         className="text-base sm:text-lg leading-6 mt-4"
                         dangerouslySetInnerHTML={{
-                          __html: details.instructions
+                          __html: details.instructions,
                         }}
                       ></p>
                     </div>

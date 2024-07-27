@@ -21,7 +21,7 @@ const SignupForm: React.FC = () => {
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
       const users = JSON.parse(localStorage.getItem("users") || "[]");
-      
+
       const userExists = users.some((user: any) => user.email === data.email);
 
       if (userExists) {
@@ -38,8 +38,10 @@ const SignupForm: React.FC = () => {
       console.log("Sign-up successful");
       const authToken = btoa(`${data.email}:${data.password}`); // Basic encoding for demonstration
       localStorage.setItem("authToken", authToken);
-      localStorage.setItem("userData", JSON.stringify({ name: data.name, email: data.email }));
-
+      localStorage.setItem(
+        "userData",
+        JSON.stringify({ name: data.name, email: data.email }),
+      );
 
       navigate("/");
 
@@ -78,14 +80,19 @@ const SignupForm: React.FC = () => {
             Email:
           </label>
           <input
-            {...register("email", { required: "Email is required", pattern: { value: /^\S+@\S+$/i, message: "Invalid email format" } })}
+            {...register("email", {
+              required: "Email is required",
+              pattern: { value: /^\S+@\S+$/i, message: "Invalid email format" },
+            })}
             type="email"
             id="email"
             placeholder="Enter your email"
             autoComplete="email"
             className={`w-full border font-mono rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue ${errors.email ? "border-red-500" : ""}`}
           />
-          {errors.email && <p className="text-red-500">{errors.email.message}</p>}
+          {errors.email && (
+            <p className="text-red-500">{errors.email.message}</p>
+          )}
         </div>
         <div>
           <label
@@ -95,14 +102,22 @@ const SignupForm: React.FC = () => {
             Password:
           </label>
           <input
-            {...register("password", { required: "Password is required", minLength: { value: 8, message: "Password must be at least 8 characters long" } })}
+            {...register("password", {
+              required: "Password is required",
+              minLength: {
+                value: 8,
+                message: "Password must be at least 8 characters long",
+              },
+            })}
             type="password"
             id="password"
             placeholder="Enter your password"
             autoComplete="password"
             className={`w-full border font-mono rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue ${errors.password ? "border-red-500" : ""}`}
           />
-          {errors.password && <p className="text-red-500">{errors.password.message}</p>}
+          {errors.password && (
+            <p className="text-red-500">{errors.password.message}</p>
+          )}
         </div>
         <button
           type="submit"

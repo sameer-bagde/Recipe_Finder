@@ -6,12 +6,15 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export default defineConfig({
-  plugins: [react(), sentryVitePlugin({
-    org: "na-uuv",
-    project: "recipe-finder"
-  })],
+  plugins: [
+    react(),
+    sentryVitePlugin({
+      org: "na-uuv",
+      project: "recipe-finder",
+    }),
+  ],
 
   build: {
-    sourcemap: true
-  }
+    sourcemap: true,
+  },
 });

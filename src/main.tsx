@@ -5,7 +5,6 @@ import App from "./App";
 import { ThemeProvider } from "./context/theme";
 import * as Sentry from "@sentry/react";
 
-
 Sentry.init({
   dsn: "https://15e23d9cb86dedb1fa592c0be952a863@o4507537655463936.ingest.de.sentry.io/4507647160746064",
   integrations: [

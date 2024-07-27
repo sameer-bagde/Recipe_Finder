@@ -1,0 +1,20 @@
+{
+  "translation": {
+    "Current Date and Time": "Current Date and Time",
+    "Show AI Generated Recipe": "Show AI Generated Recipe",
+    "Show Search": "Search",
+    "Search": "Search",
+    "Unable to Load Recipes": "Unable to load recipes",
+    "RANDOM RECIPE": "RANDOM RECIPE",
+    "Ingredients": "Ingredients",
+    "Instructions": "Instructions",
+    "Enter a recipe name or ask for a recipe": "Enter a recipe name or ask for a recipe",
+    "Recipe or Ingredients...": "Recipe or Ingredients...",
+    "Sign-Up": "Sign-Up",
+    "Sign-In": "Sign-In",
+    "Sign-Out": "Sign-Out",
+    "Generate": "Generate",
+    "Close": "Close",
+    "Favorites": "Favorites"
+  }
+}

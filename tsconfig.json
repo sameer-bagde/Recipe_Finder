@@ -15,8 +15,13 @@
     "forceConsistentCasingInFileNames": true,
     "jsx": "react-jsx",
     "types": ["jest", "@testing-library/jest-dom", "node"]
-
   },
-  "include": ["src/**/*", "src/_tests_/App.test.tsx", "test", "__ mocks __", "jest-setup.ts"],
+  "include": [
+    "src/**/*",
+    "src/_tests_/App.test.tsx",
+    "test",
+    "__ mocks __",
+    "jest-setup.ts"
+  ],
   "exclude": ["node_modules"]
 }
