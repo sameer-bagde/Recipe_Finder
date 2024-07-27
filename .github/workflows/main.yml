@@ -3,6 +3,9 @@ name: Auto test Recipe_Finder project
 on:
   push:
     branches:
+      - feature
+  pull_request:
+    branches:
       - main
 
 jobs:
